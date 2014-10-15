@@ -4,7 +4,10 @@
 
 First, clone the repository and update all required submodules
 
-    git clone git://github.com/keelerm84/.emacs.d.git
+    # This is forked from my friend, so if you would like his awesome improvements
+    # git clone git://github.com/keelerm84/.emacs.d.git
+    # otherwise, run this
+    git clone git://github.com/caesargus/.emacs.d.git
     cd .emacs.d
     git submodule init
     git submodule update --recursive
