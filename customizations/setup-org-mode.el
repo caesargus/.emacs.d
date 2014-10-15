@@ -1,11 +1,3 @@
-(set-face-font 'org-level-1 (face-font 'default))
-(set-face-font 'org-level-2 (face-font 'default))
-(set-face-font 'org-level-3 (face-font 'default))
-(set-face-font 'org-level-4 (face-font 'default))
-(set-face-font 'org-level-5 (face-font 'default))
-(set-face-font 'org-level-6 (face-font 'default))
-(set-face-font 'org-level-7 (face-font 'default))
-(set-face-font 'org-level-8 (face-font 'default))
 (set-face-attribute 'org-checkbox nil :box nil)
 
 ; Make sure the code in begin_src blocks is colorized both when
@@ -14,12 +6,15 @@
 (setq org-latex-pdf-process '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 (setq org-latex-listings 'minted)
 (add-to-list 'org-latex-packages-alist '("" "minted"))
+
+(setq org-latex-create-formula-image-program 'imagemagick)
+
 (setq org-src-fontify-natively t)
 
 (setq org-todo-keywords
       '(
         (sequence "TODO(t)" "WAITING(w)" "STARTED(s)" "|" "DONE(d)" "DELEGATED(g)")
-        (sequence "PLANNING(p)" "STARTED(s)" "CLIENT TESTING(c)" "CODE REVIEW(r)" "|" "MERGED(m)" "ON HOLD(h)")
+        (sequence "TODO(t)" "PLANNING(p)" "STARTED(s)" "CLIENT TESTING(c)" "CODE REVIEW(r)" "|" "MERGED(m)" "ON HOLD(h)")
         ))
 
 (setq org-todo-keyword-faces
@@ -40,9 +35,8 @@
 
 (setq org-log-done 'time)
 
-(setq org-directory "~/Documents/Dropbox/OrgFiles/")
-(setq org-agenda-files `(,org-directory))
-(setq org-default-notes-file (concat org-directory "refile.org"))
+(setq org-agenda-files (list org-directory (keelerm/org-path "Tortugas")))
+(setq org-default-notes-file (keelerm/org-path "refile.org"))
 
 ; Targets include this file and any file contributing to the agenda - up to 9 levels deep
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
@@ -56,6 +50,38 @@
 
 ; Allow refile to create parent tasks with confirmation
 (setq org-refile-allow-creating-parent-nodes (quote confirm))
+
+(setq org-agenda-custom-commands
+      '(("r" "Research Square TODOs" ((agenda "" nil) (alltodo "" nil))
+         ((org-agenda-files (list (keelerm/org-path "rs.org")))))
+        ("p" . "Personal")
+        ("pt" "TODOs" ((agenda "" nil) (alltodo "" nil))
+         ((org-agenda-files (list (keelerm/org-path "personal.org")))))
+        ("pi" "Project Ideas" ((search "*"))
+         ((org-agenda-files (list (keelerm/org-path "projects.org")))))
+        ("c" "Consulting TODOs" ((agenda "" nil) (alltodo "" nil))
+         ((org-agenda-files (file-expand-wildcards (keelerm/org-path "Tortugas/*.org")))))
+        ("b" "Blog Ideas" ((agenda "" nil) (search "*"))
+         ((org-agenda-files (list (keelerm/org-path "blog.org")))))
+        ("i" . "Improvements")
+        ("il" "Learn" tags "CATEGORY=\"learn\""
+         ((org-agenda-files (list (keelerm/org-path "improvements.org")))))
+        ("ir" "Read" tags "CATEGORY=\"read\""
+         ((org-agenda-files (list (keelerm/org-path "improvements.org")))))
+        ("iw" "Watch" tags "CATEGORY=\"watch\""
+         ((org-agenda-files (list (keelerm/org-path "improvements.org")))))
+        ("ia" "All Agenda" ((agenda "" nil))
+         ((org-agenda-files (list (keelerm/org-path "improvements.org")))))
+        ("is" "Search specific tag" ((agenda "" nil) (tags))
+         ((org-agenda-files (list (keelerm/org-path "improvements.org")))))))
+
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline (keelerm/org-path "refile.org") "Tasks")
+         "* TODO %?")
+        ("b" "Blog Ideas" entry (file (keelerm/org-path "blog.org"))
+         "* TODO %?")
+        ("i" "Improvement" entry (file (keelerm/org-path "improvements.org"))
+         "* TODO %?%^g%^{CATEGORY}p")))
 
 ; Use IDO for both buffer and file completion and ido-everywhere to t
 (setq org-completion-use-ido t)
@@ -72,5 +98,8 @@
   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
 
 (setq org-refile-target-verify-function 'bh/verify-refile-target)
+
+(add-to-list 'org-global-properties
+      '("Effort_ALL". "0:05 0:15 0:30 1:00 2:00 3:00 4:00 8:00 16:00 24:00"))
 
 (provide 'setup-org-mode)

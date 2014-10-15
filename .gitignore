@@ -4,3 +4,16 @@ elpa/*
 eshell/*
 *~
 emms/*
+*elc
+/image-dired/
+/custom.el
+/projectile-bookmarks.eld
+/url/
+/var/
+/bookmarks
+/custom.el
+/projectile-bookmarks.eld
+/projectile.cache
+/url/
+/geben/
+/ac-comphist.dat

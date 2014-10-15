@@ -12,6 +12,8 @@
 
 (setq customizations (expand-file-name "customizations" dotfiles-dir))
 
+(setq org-directory "~/Documents/Dropbox/OrgFiles/")
+
 (dolist (project (directory-files site-lisp-dir t "\\w+"))
   (when (file-directory-p project)
     (add-to-list 'load-path project)))
@@ -38,6 +40,8 @@
   (packages-install
    '(
      ace-jump-mode
+     ace-jump-zap
+     ace-window
      ack-and-a-half
      auctex
      auto-complete
@@ -48,13 +52,18 @@
      clojure-test-mode
      csharp-mode
      dired-details
+     dirtree
+     discover-my-major
      emms
      ensime
      exec-path-from-shell
      expand-region
-     fiplr
+     evil
+     feature-mode
      floobits
      gist
+     git-timemachine
+     flycheck
      flx-ido
      git-gutter
      ggtags
@@ -64,10 +73,14 @@
      ido-ubiquitous
      jade-mode
      js2-mode
+     js2-refactor
+     json-mode
+     key-chord
+     ledger-mode
      less-css-mode
      magit
-     molokai-theme
      multiple-cursors
+     neotree
      org
      org2blog
      org-journal
@@ -75,16 +88,18 @@
      php-auto-yasnippets
      php-extras
      php-mode
-     project-explorer
+     php-refactor-mode
      projectile
      projectile-rails
      puppet-mode
-     sass-mode
      sbt-mode
      scala-mode2
-     solarized-theme
+     scss-mode
+     smartscan
+     surround
      twittering-mode
      web-mode
+     windresize
      zenburn-theme
      )))
 
@@ -128,8 +143,17 @@
 (require 'setup-org-journal)
 (require 'key-bindings)
 (require 'mode-mappings)
-(require 'project-explorer)
 (require 'ack-and-a-half)
+(require 'evil)
+(require 'surround)
+(require 'feature-mode)
+(require 'dirtree)
+(require 'windresize)
+(require 'key-chord)
+(require 'neotree)
+(require 'ledger-mode)
+(require 'gist)
+(require 'vc-git)
 
 (eval-after-load 'auto-complete '(require 'setup-auto-complete))
 (eval-after-load 'ido '(require 'setup-ido))
@@ -144,11 +168,13 @@
 (eval-after-load 'org2blog-autoloads '(require 'setup-org2blog))
 (eval-after-load 'helm-mode '(require 'setup-helm))
 (eval-after-load 'scala-mode2 '(require 'setup-scala))
-(eval-after-load 'sass-mode '(require 'setup-css))
+(eval-after-load 'scss-mode '(require 'setup-css))
 (eval-after-load 'less-css-mode '(require 'setup-css))
 (eval-after-load 'css-mode '(require 'setup-css))
 (eval-after-load 'clojure-test-mode '(require 'setup-clojure-test))
 (eval-after-load 'cider-mode '(require 'setup-cider))
+(eval-after-load 'projectile '(require 'setup-projectile))
+(eval-after-load 'ledger-mode '(require 'setup-ledger))
 
 (setq user-full-name "Matthew M. Keeler")
 (setq user-mail-address "keelerm84@gmail.com")

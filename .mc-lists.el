@@ -10,20 +10,32 @@
         c-electric-slash
         dabbrev-expand
         delete-horizontal-space
+        dired-maybe-insert-subdir
+        dired-previous-line
         eval-last-sexp
+        evil-change
+        evil-force-normal-state
+        evil-normal-state
         fill-paragraph
         forward-sexp
         ido-find-file
         indent-for-tab-command
+        indent-new-comment-line
         kill-region
         markdown-exdent-or-delete
+        my-kill-region
         org-beginning-of-line
         org-delete-char
         org-end-of-line
         org-force-self-insert
         org-kill-line
         org-self-insert-command
+        orgtbl-self-insert-command
+        paredit-forward
         paredit-forward-delete
+        paredit-forward-kill-word
+        paredit-forward-slurp-sexp
+        paredit-open-round
         python-backspace
         python-indent-dedent-line-backspace
         rectangle-number-lines
@@ -35,6 +47,7 @@
 (setq mc/cmds-to-run-once
       '(
         facemenu-set-bold-italic
+        php-browse-manual
         yas-expand
         yas-expand-from-trigger-key
         ))

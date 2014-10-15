@@ -5,19 +5,21 @@
 (global-set-key (kbd "C-c l") 'windmove-right)
 (global-set-key (kbd "C-c |") 'toggle-window-split)
 
-(global-set-key (kbd "S-C-h") 'shrink-window-horizontally)
-(global-set-key (kbd "S-C-l") 'enlarge-window-horizontally)
-(global-set-key (kbd "S-C-j") 'shrink-window)
-(global-set-key (kbd "S-C-k") 'enlarge-window)
+(global-set-key (kbd "C-c w r") 'windresize)
+(global-set-key (kbd "C-c w j") 'ace-window)
+(global-set-key (kbd "C-c w d") 'toggle-window-dedicated)
+
+;; Convenient toggle bindings
+(global-set-key (kbd "C-c t s s") 'smartscan-mode)
+(global-set-key (kbd "C-c t l n") 'linum-mode)
+(global-set-key (kbd "C-c t l l") 'toggle-truncate-lines)
+(global-set-key (kbd "C-c t e m") 'evil-mode)
 
 ;; Expand region
-(global-set-key (kbd "C-=") 'er/expand-region)
+(global-set-key (kbd "M-=") 'er/expand-region)
 (global-set-key (kbd "M-/") 'hippie-expand)
 
 ;; Project Management
-(global-set-key (kbd "C-c f f") 'fiplr-find-file)
-(global-set-key (kbd "C-c f d") 'fiplr-find-directory)
-(global-set-key (kbd "C-c f c") 'fiplr-clear-cache)
 (global-set-key (kbd "M-i") 'imenu)
 
 ;; Text manipulation
@@ -25,6 +27,8 @@
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "M-Z") 'zap-to-char)
 (global-set-key (kbd "C-c d") 'duplicate-line)
+(global-set-key (kbd "M-w") 'keelerm/kill-ring-save)
+(global-set-key (kbd "C-w") 'keelerm/kill-region)
 
 (global-set-key (kbd "C-x r t") 'set-rectangular-region-anchor)
 (global-set-key (kbd "C-c f j") 'format-json)
@@ -40,7 +44,7 @@
 (global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
 (global-set-key (kbd "C-x C-k") 'delete-current-buffer-file)
 
-(global-set-key (kbd "C-c C-s") 'create-scratch-buffer)
+(global-set-key (kbd "C-c s") 'create-scratch-buffer)
 (global-set-key (kbd "M-s") 'save-buffer)
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -48,16 +52,21 @@
 ;; Modes
 
 ;; Git
-(global-set-key (kbd "C-;") 'magit-status)
-(require 'flyspell)
-(define-key flyspell-mode-map (kbd "C-;") 'magit-status)
-
 (global-set-key (kbd "C-c g m") 'magit-status)
 (global-set-key (kbd "C-c g n") 'git-gutter:next-hunk)
 (global-set-key (kbd "C-c g p") 'git-gutter:previous-hunk)
 (global-set-key (kbd "C-c g P") 'git-gutter:popup-hunk)
-(global-set-key (kbd "C-c g s") 'git-gutter:stage-hunk)
+(global-set-key (kbd "C-c g s h") 'git-gutter:stage-hunk)
 (global-set-key (kbd "C-c g r") 'git-gutter:revert-hunk)
+(global-set-key (kbd "C-c g t m") 'git-timemachine)
+(global-set-key (kbd "C-c g g") 'vc-git-grep)
+(global-set-key (kbd "C-c g l l") 'magit-log)
+(global-set-key (kbd "C-c g f l") 'magit-file-log)
+(global-set-key (kbd "C-c g d w") 'magit-diff-working-tree)
+(global-set-key (kbd "C-c g d s") 'magit-diff-staged)
+(global-set-key (kbd "C-c g d u") 'magit-diff-unstaged)
+(global-set-key (kbd "C-c g s c") 'magit-show-commit)
+(global-set-key (kbd "C-c g u") 'git-gutter:update-all-windows)
 
 (global-set-key (kbd "C-x e") 'eshell)
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
@@ -76,6 +85,8 @@
 (global-set-key (kbd "<f9>") 'emms-volume-lower)
 (global-set-key (kbd "<f10>") 'emms-volume-raise)
 
+(global-set-key (kbd "<f2>") 'neotree-toggle)
+
 ;; Lisp evaluation
 (global-set-key (kbd "C-c e e") 'eval-last-sexp)
 (global-set-key (kbd "C-c e r") 'eval-and-replace)
@@ -86,6 +97,27 @@
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 
 (global-set-key (kbd "C-x C-f") 'find-file)
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
+
+(key-chord-define-global "jw" 'ace-jump-mode)
+(key-chord-define-global "jc" 'ace-jump-char-mode)
+(key-chord-define-global "jl" 'ace-jump-line-mode)
+(key-chord-define-global "jf" 'ace-window)
+(key-chord-define-global "df" 'ace-jump-zap-to-char)
+(key-chord-define-global "dt" 'ace-jump-zap-up-to-char)
+
+(key-chord-define-global "mx" 'helm-M-x)
+(global-set-key (kbd "C-h C-m") 'discover-my-major)
+
+;;; Prime jump-to-register with commonly accessed files
+(mapcar
+ (lambda (r)
+   (set-register (car r) (cons 'file (cdr r))))
+ `((?d . "~/Downloads")
+   (?i . "~/.emacs.d/init.el")
+   (?l . "~/Documents/Dropbox/personal.ledger")
+   (?o . ,org-directory)
+   (?t . ,(keelerm/org-path "Tortugas"))))
 
 (provide 'key-bindings)
+
+org-directory
