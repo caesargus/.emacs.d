@@ -26,6 +26,7 @@
 (setq show-paren-delay 0)
 (key-chord-mode 1)
 
+(require 'yasnippet)
 (yas/global-mode)
 (global-git-gutter-mode 1)
 
