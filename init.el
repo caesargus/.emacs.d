@@ -186,10 +186,10 @@
   (server-start))
 
 ;; Start Evil Mode
-(evil-mode 1)
+;; (evil-mode 1)
 
 ;; start evil tabs mode
-(global-evil-tabs-mode t)
+;;(global-evil-tabs-mode t)
  ;; change mode-line color by evil state
    (lexical-let ((default-color (cons (face-background 'mode-line)
                                       (face-foreground 'mode-line))))
