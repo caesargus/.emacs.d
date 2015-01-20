@@ -11,6 +11,10 @@ First, clone the repository and update all required submodules
     cd .emacs.d
     git submodule init
     git submodule update --recursive
+    # additional steps
+    # start emacs so that it can install things
+    # package install evil-tabs
+    # package install org (updated org mode to stop errors from displaying)
 
 ### Dependencies
 
