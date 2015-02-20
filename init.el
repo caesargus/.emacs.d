@@ -12,7 +12,7 @@
 
 (setq customizations (expand-file-name "customizations" dotfiles-dir))
 
-(setq org-directory "~/Documents/Dropbox/OrgFiles/")
+(setq org-directory "~/Dropbox/OrgFiles/")
 
 (dolist (project (directory-files site-lisp-dir t "\\w+"))
   (when (file-directory-p project)
@@ -35,6 +35,22 @@
 (add-to-list 'load-path dotfiles-dir)
 (add-to-list 'load-path customizations)
 
+;; el-get setup
+(add-to-list 'load-path (expand-file-name "el-get/el-get/" dotfiles-dir))
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+
+(el-get 'sync)
+
+;; el-get installations
+(el-get-install 'yaml-mode)
+(el-get-install 'yasnippet)
+(el-get-install 'markdown-mode)
+
 (require 'setup-package)
 (defun init--install-packages()
   (packages-install
@@ -49,7 +65,7 @@
      change-inner
      cl-lib
      clojure-mode
-     clojure-test-mode
+     ;; clojure-test-mode
      csharp-mode
      dired-details
      dirtree
@@ -109,21 +125,6 @@
    (package-refresh-contents)
    (init--install-packages)))
 
-;; el-get setup
-(add-to-list 'load-path (expand-file-name "el-get/el-get/" dotfiles-dir))
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
-
-(el-get 'sync)
-
-;; el-get installations
-(el-get-install 'yaml-mode)
-(el-get-install 'yasnippet)
-(el-get-install 'markdown-mode)
 
 (when (memq window-system '(mac ns))
   (setq mac-command-modifier 'meta)
@@ -154,7 +155,7 @@
 (require 'ledger-mode)
 (require 'gist)
 (require 'vc-git)
-(require 'elscreen)
+;; (require 'elscreen)
 
 (eval-after-load 'auto-complete '(require 'setup-auto-complete))
 (eval-after-load 'ido '(require 'setup-ido))
