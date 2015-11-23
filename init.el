@@ -1,3 +1,4 @@
+
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
@@ -204,4 +205,6 @@
            (set-face-background 'mode-line (car color))
            (set-face-foreground 'mode-line (cdr color))))))
 
+;; Set Wordwrap
+(global-visual-line-mode t)
 ;;; init.el ends here
