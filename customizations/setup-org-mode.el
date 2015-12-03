@@ -6,12 +6,12 @@
 
 ; Make sure the code in begin_src blocks is colorized both when
 ; editing and when exporting.
-(require 'org-latex)
-(setq org-latex-pdf-process '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-(setq org-latex-listings 'minted)
-(add-to-list 'org-latex-packages-alist '("" "minted"))
+; (require 'org-latex)
+; (setq org-latex-pdf-process '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+; (setq org-latex-listings 'minted)
+; (add-to-list 'org-latex-packages-alist '("" "minted"))
 
-(setq org-latex-create-formula-image-program 'imagemagick)
+; (setq org-latex-create-formula-image-program 'imagemagick)
 
 (setq org-src-fontify-natively t)
 
@@ -61,6 +61,10 @@
       '(("r" "Research Square TODOs" ((agenda "" nil) (alltodo "" nil))
          ((org-agenda-files (list (keelerm/org-path "rs.org")))))
         ("p" . "Personal")
+        ("ph" "Health" ((agenda "" nil) (alltodo "" nil))
+         ((org-agenda-files (list (keelerm/org-path "health.org")))))
+        ("ps" "Shopping List" ((agenda "" nil) (alltodo "" nil))
+         ((org-agenda-files (list (keelerm/org-path "shopping.org")))))
         ("pt" "TODOs" ((agenda "" nil) (alltodo "" nil))
          ((org-agenda-files (list (keelerm/org-path "personal.org")))))
         ("pi" "Project Ideas" ((search "*"))

@@ -1,3 +1,4 @@
+
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
@@ -12,7 +13,7 @@
 
 (setq customizations (expand-file-name "customizations" dotfiles-dir))
 
-(setq org-directory "~/Documents/Dropbox/OrgFiles/")
+(setq org-directory "~/Dropbox/OrgFiles/")
 
 ;; 
 (dolist (project (directory-files site-lisp-dir t "\\w+"))
@@ -51,6 +52,22 @@
 (el-get-install 'yasnippet)
 (el-get-install 'markdown-mode)
 
+;; el-get setup
+(add-to-list 'load-path (expand-file-name "el-get/el-get/" dotfiles-dir))
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+
+(el-get 'sync)
+
+;; el-get installations
+(el-get-install 'yaml-mode)
+(el-get-install 'yasnippet)
+(el-get-install 'markdown-mode)
+
 (require 'setup-package)
 (defun init--install-packages()
   (packages-install
@@ -65,7 +82,7 @@
      change-inner
      cl-lib
      clojure-mode
-;;     clojure-test-mode
+     ;; clojure-test-mode
      csharp-mode
      dired-details
      dirtree
@@ -156,7 +173,7 @@
 (require 'ledger-mode)
 (require 'gist)
 (require 'vc-git)
-;;(require 'elscreen)
+;; (require 'elscreen)
 
 (eval-after-load 'auto-complete '(require 'setup-auto-complete))
 (eval-after-load 'ido '(require 'setup-ido))
@@ -218,4 +235,6 @@
 ;; This is not being set somehow ... grrrr
 (setenv "TERM" "xterm-color")
 
+;; Set Wordwrap
+(global-visual-line-mode t)
 ;;; init.el ends here
