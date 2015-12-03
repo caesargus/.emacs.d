@@ -14,6 +14,7 @@
 
 (setq org-directory "~/Documents/Dropbox/OrgFiles/")
 
+;; 
 (dolist (project (directory-files site-lisp-dir t "\\w+"))
   (when (file-directory-p project)
  ))
@@ -76,6 +77,7 @@
      evil
      feature-mode
      floobits
+     geeknote
      gist
      git-timemachine
      flycheck
@@ -154,7 +156,7 @@
 (require 'ledger-mode)
 (require 'gist)
 (require 'vc-git)
-(require 'elscreen)
+;;(require 'elscreen)
 
 (eval-after-load 'auto-complete '(require 'setup-auto-complete))
 (eval-after-load 'ido '(require 'setup-ido))
@@ -185,6 +187,16 @@
 (unless (server-running-p)
   (server-start))
 
+;; set default shell
+(setq explicit-shell-file-name "/bin/bash")
+(setq shell-file-name "bash")
+(setq explicit-bash-args '("--noediting" "--login" "-i"))
+(setenv "SHELL" (expand-file-name "~/bin/shell"))
+(setenv "ESHELL" (expand-file-name "~/bin/eshell"))
+(add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)
+(setenv "VISUAL" "emacsclient")
+(setenv "EDITOR" "emacsclient --alternate-editor=emacs --no-wait +%1 %f")
+
 ;; Start Evil Mode
 ;; (evil-mode 1)
 
@@ -202,5 +214,8 @@
                             (t default-color))))
            (set-face-background 'mode-line (car color))
            (set-face-foreground 'mode-line (cdr color))))))
+
+;; This is not being set somehow ... grrrr
+(setenv "TERM" "xterm-color")
 
 ;;; init.el ends here
